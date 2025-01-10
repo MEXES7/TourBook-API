@@ -19,8 +19,9 @@ const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
 
-// app.set('view engine', 'pug');
-// app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+//  app.engine('jsx', require('express-react-views').createEngine())
+app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
 // Serving static files
@@ -38,7 +39,7 @@ if (process.env.NODE_ENV === 'development') {
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again in an hour!'
+  message: 'Too many requests from this IP, please try again in an hour!',
 });
 app.use('/api', limiter);
 
@@ -62,8 +63,8 @@ app.use(
       'ratingsAverage',
       'maxGroupSize',
       'difficulty',
-      'price'
-    ]
+      'price',
+    ],
   })
 );
 
